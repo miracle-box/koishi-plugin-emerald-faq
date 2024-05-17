@@ -30,7 +30,7 @@ export function apply(ctx: Context) {
   ctx.i18n.define("zh-CN", require("./translation/zh-CN.yaml"));
 
   // I18n entry for faq items
-  const faqDict = { faq: { items: (ctx.config as Config).items } };
+  const faqDict = { "emerald-faq": { items: (ctx.config as Config).items } };
   ctx.i18n.define((ctx.config as Config).defaultLocale, faqDict);
 
   ctx.command("faq [item]").action(({ session }, item) => {
@@ -57,4 +57,5 @@ export function apply(ctx: Context) {
   });
 }
 
-const getItemContentI18nKey = (key: string) => `faq.items.${key}.content`;
+const getItemContentI18nKey = (key: string) =>
+  `emerald-faq.items.${key}.content`;
