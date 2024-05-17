@@ -2,6 +2,7 @@
   "name": "@miracle-box/koishi-plugin-emerald-faq",
   "description": "Provides a simple FAQ command, used by emerald bot.",
   "version": "0.0.1",
+  "repository": "github:miracle-box/koishi-plugin-emerald-faq",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
