@@ -7,7 +7,7 @@ export function addTranslation(ctx: Context) {
   ctx.i18n.define("zh-CN", {
     ...Object.fromEntries([
       [
-        `commands.emerald-faq_${config.i18nGroup}.messages`,
+        `commands.emerald-faq_${config.identifier}.messages`,
         require("./translation/zh-CN.yaml").messages,
       ],
     ]),
@@ -16,7 +16,7 @@ export function addTranslation(ctx: Context) {
   // I18n entry for faq items
   const faqDict = {
     "emerald-faq": {
-      ...Object.fromEntries([[config.i18nGroup, config.items]]),
+      ...Object.fromEntries([[config.identifier, config.items]]),
     },
   };
   ctx.i18n.define(config.defaultLocale, faqDict);

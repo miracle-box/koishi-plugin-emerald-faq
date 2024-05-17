@@ -5,13 +5,15 @@ export function addFaqCommand(ctx: Context) {
   const config = ctx.config as Config;
 
   ctx
-    .command(`emerald-faq_${config.i18nGroup} [item]`)
+    .command(`emerald-faq_${config.identifier} [item]`)
     .action(({ session }, item) => {
       // Flatten faq items for use
       const items = Object.entries(config.items).map(([key]) => ({
         key,
-        desc: session.text(`emerald-faq.${config.i18nGroup}.${key}.desc`),
-        content: session.text(`emerald-faq.${config.i18nGroup}.${key}.content`),
+        desc: session.text(`emerald-faq.${config.identifier}.${key}.desc`),
+        content: session.text(
+          `emerald-faq.${config.identifier}.${key}.content`
+        ),
       }));
 
       // faq listing

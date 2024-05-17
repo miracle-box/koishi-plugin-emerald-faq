@@ -1,8 +1,8 @@
 import { Schema } from "koishi";
 
 export interface Config {
+  identifier: string;
   defaultLocale: string;
-  i18nGroup: string;
   items: Record<
     string,
     {
@@ -13,8 +13,8 @@ export interface Config {
 }
 
 export const Config: Schema<Config> = Schema.object({
+  identifier: Schema.string().required().default("items"),
   defaultLocale: Schema.string().default("zh-CN"),
-  i18nGroup: Schema.string().required().default("items"),
   items: Schema.dict(
     Schema.object({
       desc: Schema.string(),
