@@ -1,9 +1,11 @@
 import { Context, Schema } from "koishi";
 
 export const name = "emerald-faq";
+export const reusable = true;
 
 export interface Config {
   defaultLocale: string;
+  i18nGroup: string;
   items: Record<
     string,
     {
@@ -15,6 +17,7 @@ export interface Config {
 
 export const Config: Schema<Config> = Schema.object({
   defaultLocale: Schema.string().default("zh-CN"),
+  i18nGroup: Schema.string().required().default("items"),
   items: Schema.dict(
     Schema.object({
       desc: Schema.string(),
@@ -26,36 +29,48 @@ export const Config: Schema<Config> = Schema.object({
 });
 
 export function apply(ctx: Context) {
+  const config = ctx.config as Config;
+
   // Regular i18n dict
-  ctx.i18n.define("zh-CN", require("./translation/zh-CN.yaml"));
+  ctx.i18n.define("zh-CN", {
+    ...Object.fromEntries([
+      [
+        `commands.emerald-faq_${config.i18nGroup}.messages`,
+        require("./translation/zh-CN.yaml").messages,
+      ],
+    ]),
+  });
 
   // I18n entry for faq items
-  const faqDict = { "emerald-faq": { items: (ctx.config as Config).items } };
-  ctx.i18n.define((ctx.config as Config).defaultLocale, faqDict);
+  const faqDict = {
+    "emerald-faq": {
+      ...Object.fromEntries([[config.i18nGroup, config.items]]),
+    },
+  };
+  ctx.i18n.define(config.defaultLocale, faqDict);
 
-  ctx.command("faq [item]").action(({ session }, item) => {
-    // Flatten faq items for use
-    const items = Object.entries((ctx.config as Config).items).map(
-      ([key, { desc, content }]) => ({
+  ctx
+    .command(`emerald-faq_${config.i18nGroup} [item]`)
+    .action(({ session }, item) => {
+      // console.log(session.resolve(config.comp));
+
+      // Flatten faq items for use
+      const items = Object.entries(config.items).map(([key]) => ({
         key,
-        desc,
-        content,
-      })
-    );
+        desc: session.text(`emerald-faq.${config.i18nGroup}.${key}.desc`),
+        content: session.text(`emerald-faq.${config.i18nGroup}.${key}.content`),
+      }));
 
-    // faq listing
-    if (!item || item === "list") {
-      if (items.length <= 0) return session.text(".noitems");
+      // faq listing
+      if (!item || item === "list") {
+        if (items.length <= 0) return session.text(".noitems");
 
-      return session.text(".list", { items });
-    }
+        return session.text(".list", { items });
+      }
 
-    const faqItemExists = !!items.find(({ key }) => item === key);
-    if (!faqItemExists) return session.text(".notfound", [item]);
+      const requestedItem = items.find(({ key }) => item === key);
+      if (!requestedItem) return session.text(".notfound", [item]);
 
-    return session.text(getItemContentI18nKey(item));
-  });
+      return requestedItem.content;
+    });
 }
-
-const getItemContentI18nKey = (key: string) =>
-  `emerald-faq.items.${key}.content`;

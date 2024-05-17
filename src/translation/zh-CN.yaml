@@ -1,16 +1,15 @@
 _config:
   defaultLocale: "默认语言"
+  i18nGroup: "本地化组名（用于多份配置文件的情况，各配置间不能重复）"
   items:
-    $desc: "帮助条目列表 （在这里定义的条目将会作为默认语言的本地化文本，请注意在修改本地化文本时不要覆盖）"
+    $desc: "帮助条目列表（配置值将会自动作为默认语言的本地化文本，请不要覆盖）"
     desc: "描述信息"
     content: "帮助内容"
 
-commands:
-  faq:
-    messages:
-      notfound: "没有找到与 {0} 相关的帮助条目，请使用 faq list 命令查询全部可用条目。"
-      noitems: "目前没有任何帮助条目，请先在配置文件中定义帮助信息。"
-      list: |
-        可用的帮助条目：
-        {#each items as i}  - {i.key}: {i.desc}
-        {/each}
+messages:
+  notfound: "没有找到与 {0} 相关的帮助条目，请使用 faq list 命令查询全部可用条目。"
+  noitems: "目前没有任何帮助条目，请先在配置文件中定义帮助信息。"
+  list: |
+    可用的帮助条目：
+    {#each items as i}  - {i.key}: {i.desc}
+    {/each}
