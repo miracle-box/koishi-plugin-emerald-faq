@@ -3,21 +3,14 @@ import { Config } from "./config";
 
 export function addTranslation(ctx: Context) {
   const config = ctx.config as Config;
-  // Regular i18n dict
+  // I18n for faq command
   ctx.i18n.define("zh-CN", {
-    ...Object.fromEntries([
-      [
-        `commands.emerald-faq_${config.identifier}.messages`,
-        require("./translation/zh-CN.yaml").messages,
-      ],
-    ]),
+    [`commands.emerald-faq_${config.identifier}`]:
+      require("./translation/zh-CN.yaml").command_faq,
   });
 
   // I18n entry for faq items
-  const faqDict = {
-    "emerald-faq": {
-      ...Object.fromEntries([[config.identifier, config.items]]),
-    },
-  };
-  ctx.i18n.define(config.defaultLocale, faqDict);
+  ctx.i18n.define(config.defaultLocale, {
+    [`emerald-faq.${config.identifier}`]: config.items,
+  });
 }

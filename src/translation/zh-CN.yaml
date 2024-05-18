@@ -6,10 +6,14 @@ _config:
     desc: "描述信息"
     content: "帮助内容"
 
-messages:
-  notfound: "没有找到与 {0} 相关的帮助条目，请使用 !faq list 命令查询全部可用条目。"
-  noitems: "目前没有任何帮助条目，请先在配置文件中定义帮助信息。"
-  list: |
-    可用的帮助条目：
-    {#each items as i}  - {i.key}: {i.desc}
-    {/each}
+command_faq:
+  arguments:
+    item: "帮助条目名称"
+  description: "查看常用的帮助条目"
+  messages:
+    notfound: "没有找到与 {0} 相关的帮助条目，请使用 !faq list 命令查询全部可用条目。"
+    noitems: "目前没有任何帮助条目，请先在配置文件中定义帮助信息。"
+    list: |
+      可用的帮助条目：
+      {#each items as i}  - {i.key}: {i.desc}
+      {/each}
