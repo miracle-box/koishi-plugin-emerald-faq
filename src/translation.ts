@@ -6,7 +6,7 @@ export function addTranslation(ctx: Context) {
   // I18n for faq command
   ctx.i18n.define("zh-CN", {
     [`commands.emerald-faq_${config.identifier}`]:
-      require("./translation/zh-CN.yaml").command_faq,
+      require("./locale/zh-CN.json").command_faq,
   });
 
   // I18n entry for faq items

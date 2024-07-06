@@ -1,0 +1,20 @@
+{
+  "_config": {
+    "identifier": "唯一标识符（用于区分多份配置的本地化键名和指令名）",
+    "defaultLocale": "默认语言",
+    "items": {
+      "$desc": "帮助条目列表（配置值将会自动作为默认语言的本地化文本，请不要覆盖）",
+      "desc": "描述信息",
+      "content": "帮助内容"
+    }
+  },
+  "command_faq": {
+    "arguments": { "item": "帮助条目名称" },
+    "description": "查看常用的帮助条目",
+    "messages": {
+      "notfound": "没有找到与 {0} 相关的帮助条目，请使用 !faq list 命令查询全部可用条目。",
+      "noitems": "目前没有任何帮助条目，请先在配置文件中定义帮助信息。",
+      "list": "可用的帮助条目：\n{#each items as i}  - {i.key}: {i.desc}\n{/each}\n"
+    }
+  }
+}

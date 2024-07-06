@@ -22,5 +22,5 @@ export const Config: Schema<Config> = Schema.object({
     })
   ).role("table"),
 }).i18n({
-  "zh-CN": require("./translation/zh-CN.yaml")._config,
+  "zh-CN": require("./locale/zh-CN.json")._config,
 });

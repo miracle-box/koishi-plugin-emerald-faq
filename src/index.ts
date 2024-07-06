@@ -1,4 +1,4 @@
-import { Context, Schema } from "koishi";
+import { Context } from "koishi";
 import { addTranslation } from "./translation";
 import { addFaqCommand } from "./command";
 
