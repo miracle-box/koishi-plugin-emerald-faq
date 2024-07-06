@@ -1,7 +1,7 @@
 {
   "name": "@miracle-box/koishi-plugin-emerald-faq",
   "description": "Provides a simple FAQ command, used by emerald bot.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/miracle-box/koishi-plugin-emerald-faq.git"
